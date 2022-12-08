@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/adrg/xdg"
 	"github.com/google/go-github/v48/github"
 	"github.com/joho/godotenv"
 	"golang.org/x/oauth2"
@@ -22,8 +23,15 @@ func main() {
 		}
 	}()
 
-	err := godotenv.Load()
-	if err != nil {
+	if cfgPath, err := xdg.ConfigFile("ghnotes/env"); err == nil {
+		if err := godotenv.Load(cfgPath); err != nil {
+			if !errors.Is(err, os.ErrNotExist) {
+				log.Printf("WARNING: unable to load .env file: %v", err)
+			}
+		}
+	}
+
+	if err := godotenv.Load(); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			log.Printf("WARNING: unable to load .env file: %v", err)
 		}
