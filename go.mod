@@ -1,10 +1,11 @@
-module ghnd
+module ghrev
 
 go 1.19
 
 require (
 	github.com/gizak/termui/v3 v3.1.0
 	github.com/google/go-github/v48 v48.1.0
+	github.com/joho/godotenv v1.4.0
 	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 )
 
